@@ -21,7 +21,6 @@ import java.util.List;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-@Controller("/test")
 public class TestController {
 
     @GetMapping("")

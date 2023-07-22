@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+  thymeleaf:
+    cache: false
+    enabled: true
+    encoding: UTF-8
+    suffix: .html
+    prefix: classpath:/templates
+
+mybatis:
+  mapper-locations: mapper/**/*.xml
+  config-location: classpath:/mybatis-config.xml
+

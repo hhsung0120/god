@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/localhost
+    username: root
+    password: root1234
+    hikari:
+      pool-name: hikari-cp
+      maximum-pool-size: 2
+      max-lifetime: 55000
+      auto-commit: false
+
+logging:
+  level:
+    org.springframework.web: debug
+    kr.co.heeseong : debug
+
+

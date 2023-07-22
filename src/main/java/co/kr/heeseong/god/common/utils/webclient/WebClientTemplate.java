@@ -1,7 +1,6 @@
-package co.kr.heeseong.god.utils.webclient;
+package co.kr.heeseong.god.common.utils.webclient;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -15,14 +14,13 @@ import java.time.Duration;
 public class WebClientTemplate {
 
     private static final int TIMEOUT_SEC = 10;
-    private WebClient webClient;
+    private static WebClient webClient;
 
-    @Autowired
     public WebClientTemplate(WebClient.Builder builder) {
         webClient = builder.build();
     }
 
-    public ResponseEntity<BaseResponse> execForFile(HttpMethod method, URI uri, MultipartBodyBuilder builder, String jwtToken) {
+    public static ResponseEntity<BaseResponse> execForFile(HttpMethod method, URI uri, MultipartBodyBuilder builder, String jwtToken) {
         log.info("=== REQUEST - START ===");
         ResponseEntity<BaseResponse> response = webClient
                 .method(method)

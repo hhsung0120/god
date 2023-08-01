@@ -1,5 +1,6 @@
-package co.kr.heeseong.god.common.utils.webclient;
+package co.kr.heeseong.god.webclient;
 
+import co.kr.heeseong.god.common.model.BaseResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.*;
 import org.springframework.http.client.MultipartBodyBuilder;

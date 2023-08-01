@@ -1,14 +1,12 @@
 package co.kr.heeseong.god.test.controller;
 
-import co.kr.heeseong.god.common.utils.webclient.BaseResponse;
-import co.kr.heeseong.god.common.utils.webclient.WebClientTemplate;
+import co.kr.heeseong.god.common.model.BaseResponse;
+import co.kr.heeseong.god.webclient.WebClientTemplate;
 import co.kr.heeseong.god.test.model.AccountUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

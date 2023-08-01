@@ -16,7 +16,7 @@ public class WebClientTemplate {
 
     private static final int TIMEOUT_SEC = 10;
     private static WebClient webClient;
-
+aeworigjaeiorjgioaejrgoieajrogjoeairjgioaejrg
     public WebClientTemplate(WebClient.Builder builder) {
         webClient = builder.build();
     }

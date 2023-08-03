@@ -23,6 +23,7 @@ public class WebClientTemplate {
     // get 요청 보내기 -> 원하는 List<객체>로 응답받기
     // post 요청 보내기 -> 원하는 List<객체>로 응답받기
     // 파일 가져오기 ?
+    // 이거 추가
 
     public WebClientTemplate(WebClient.Builder builder) {
         webClient = builder.build();

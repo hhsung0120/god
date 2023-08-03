@@ -17,6 +17,13 @@ public class WebClientTemplate {
     private static final int TIMEOUT_SEC = 10;
     private static WebClient webClient;
 
+    // 타임 아웃 시간 설정
+    // get 요청 보내기 -> 원하는 객체로 응답 받기
+    // post 요청 보내기 -> 원하는 객체로 응답 받기
+    // get 요청 보내기 -> 원하는 List<객체>로 응답받기
+    // post 요청 보내기 -> 원하는 List<객체>로 응답받기
+    // 파일 가져오기 ?
+
     public WebClientTemplate(WebClient.Builder builder) {
         webClient = builder.build();
     }

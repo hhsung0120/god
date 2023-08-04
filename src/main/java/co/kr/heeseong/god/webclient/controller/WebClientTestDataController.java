@@ -1,17 +1,12 @@
-package co.kr.heeseong.god.test.controller;
+package co.kr.heeseong.god.webclient.controller;
 
-import co.kr.heeseong.god.common.model.BaseResponse;
-import co.kr.heeseong.god.webclient.WebClientTemplate;
 import co.kr.heeseong.god.test.model.AccountUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,31 +14,8 @@ import java.util.List;
 @Log4j2
 @RestController
 @RequiredArgsConstructor
-public class TestController {
-
-    @GetMapping("")
-    public String test(){
-        log.info("테스트 컨트롤러 입니다.");
-
-        ResponseEntity<BaseResponse> baseResponseResponseEntity = WebClientTemplate.execForFile(null, null, null, null);
-        System.out.println(baseResponseResponseEntity);
-
-//        .retrieve() .bodyToMono(Employee.class);
-
-
-
-//        retrieve() : ResponseEntity를 받아 디코딩
-//
-//                - exchange() : ClientResponse를 상태값 그리고 헤더와 함께
-//
-//
-//
-//        받은 응답은 bodyToFlux, bodyToMono 형태로 가져와 각각 Flux와 Mono 객체로 바꿔줍니다.
-//
-//                Mono 객체는 0-1개의 결과를 처리하는 객체이고, Flux는 0-N개의 결과를 처리하는 객체입니다.
-
-        return "테스트";
-    }
+@RequestMapping("/web-client-test")
+public class WebClientTestDataController {
 
     @GetMapping("/accounts/{seq}")
     public AccountUser getAccountUser(@PathVariable(value = "seq", required = false) Long seq){

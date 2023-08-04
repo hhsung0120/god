@@ -1,4 +1,4 @@
-package co.kr.heeseong.god.webclient;
+package co.kr.heeseong.god.webclient.utils;
 
 import co.kr.heeseong.god.common.model.BaseResponse;
 import lombok.extern.log4j.Log4j2;
@@ -24,12 +24,13 @@ public class WebClientTemplate {
     // post 요청 보내기 -> 원하는 List<객체>로 응답받기
     // 파일 가져오기 ?
     // 이거 추가
+    // 컨텐츠 타입도.. 처리 가능해야 할듯.. ?
 
     public WebClientTemplate(WebClient.Builder builder) {
         webClient = builder.build();
     }
 
-    public static ResponseEntity<BaseResponse> execForFile(HttpMethod method, URI uri, MultipartBodyBuilder builder, String jwtToken) {
+    public static ResponseEntity<?> execForFile(HttpMethod method, URI uri, MultipartBodyBuilder builder, String jwtToken) {
         log.info("=== REQUEST - START ===");
         ResponseEntity<BaseResponse> response = webClient
                 .method(method)

@@ -1,4 +1,4 @@
-package co.kr.heeseong.god.objectConverter;
+package co.kr.heeseong.god.objectconverter;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

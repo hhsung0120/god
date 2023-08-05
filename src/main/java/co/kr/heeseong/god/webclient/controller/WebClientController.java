@@ -13,17 +13,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 @Log4j2
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/web-client")
 public class WebClientController {
 
-    private final String URL = "http://web-client-test";
+    private final String URL = "http://localhost:8080/web-client-test";
 
     @GetMapping("/accounts/{seq}")
-    public ResponseEntity<?> getAccount(@PathVariable(value = "seq") Long seq){
+    public ResponseEntity<?> getAccount(@PathVariable(value = "seq") Long seq) {
         Map<String, String> request = new HashMap<>();
         request.put("seq", String.valueOf(seq));
 
@@ -33,11 +32,13 @@ public class WebClientController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/accounts")
-    public ResponseEntity<?> updateAccount(@PathVariable(value = "seq") Long seq){
-        AccountUser request = WebClientTemplate.postRequest( URL + "/accounts/" + seq, new HashMap<>(), MediaType.APPLICATION_JSON
-                , "test", AccountUser.class);
-        log.info(request);
+    @PostMapping("/accounts/{seq}")
+    public ResponseEntity<?> updateAccount(@PathVariable(value = "seq") Long seq) {
+        Map<String, String> request = new HashMap<>();
+        request.put("seq", String.valueOf(seq));
+
+        AccountUser response = WebClientTemplate.postRequest(URL + "/accounts/", request, AccountUser.class);
+        log.info(response);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

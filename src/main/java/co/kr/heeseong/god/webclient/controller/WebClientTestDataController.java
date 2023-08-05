@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Log4j2
 @RestController
@@ -37,16 +38,17 @@ public class WebClientTestDataController {
     }
 
     @PostMapping("/accounts")
-    public ResponseEntity<?> updateAccountUser(@RequestParam(value = "userId", defaultValue = "") String userId){
-        log.info("userId : {}", userId);
+    public ResponseEntity<?> updateAccountUser(@RequestBody Map<String, String> data){
+        log.info("data : {}", data);
 
-        if("error".equals(userId)){
-            return new ResponseEntity(new BaseResponse(500, "실패했습니다.", null), HttpStatus.OK);
-        }else if(!"".equals(userId)){
-            return new ResponseEntity(new BaseResponse(200, "업데이트 성공.", null), HttpStatus.OK);
-        }else {
-            return new ResponseEntity(new BaseResponse(404, "유저가 없습니다.", userId), HttpStatus.OK);
-        }
+//        if(seq == 0){
+//            return new ResponseEntity(new BaseResponse(500, "실패했습니다.", null), HttpStatus.OK);
+//        }else if(seq > 0){
+//            return new ResponseEntity(new BaseResponse(200, "업데이트 성공.", null), HttpStatus.OK);
+//        }else {
+//            return new ResponseEntity(new BaseResponse(404, "유저가 없습니다.", seq), HttpStatus.OK);
+//        }
+        return null;
     }
 
     @GetMapping("/accounts/list")

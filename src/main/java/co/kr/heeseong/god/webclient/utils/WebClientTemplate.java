@@ -11,6 +11,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Log4j2
 @Component
@@ -34,30 +35,17 @@ public class WebClientTemplate {
     }
 
     public static <T> T getRequest(String uri, Map<String, String> requestData, Class<T> responseType) {
-        MultiValueMap<String, String> request = new LinkedMultiValueMap<>();
-        request.setAll(requestData);
-
-        return webClientGetRequest(HttpMethod.GET, uri, new HashMap<>(), request, responseType);
+        return webClientGetRequest(uri, new HashMap<>(), requestData, responseType);
     }
 
-    public static <T> T webClientGetRequest(String uri, Map<String, String> headerInfo, Map<String, String> requestData, Class<T> responseType) {
-        MultiValueMap<String, String> request = new LinkedMultiValueMap<>();
-        request.setAll(requestData);
-
-        return webClientGetRequest(HttpMethod.GET, uri, headerInfo, request, responseType);
-    }
-
-    private static <T> T webClientGetRequest(HttpMethod httpMethod, String uri, Map<String, String> headerInfo, MultiValueMap<String, String> requestData, Class<T> responseType) {
+    private static <T> T webClientGetRequest(String uri, Map<String, String> headerInfo, Map<String, String> requestData, Class<T> responseType) {
         log.info("==================== webClient start ====================");
 
         T response = null;
         try {
             response = webClient
                     .get()
-                    .uri(uriBuilder ->
-                            uriBuilder.path(uri)
-                                    .queryParams(requestData)
-                                    .build())
+                    .uri(uri + "?" + setQueryParam(requestData)) // uriBuilder 와 MultiValueMap 으로 처리가 가능하나.. 어째서인지 로컬에서 주소가 씹힘, 인코딩 이슈 또는 baseUrl 이슈인듯
                     .headers(httpHeaders -> {
                         for (String key : headerInfo.keySet()) {
                             httpHeaders.add(key, headerInfo.get(key));
@@ -81,17 +69,21 @@ public class WebClientTemplate {
         return response;
     }
 
-    public static <T> T postRequest(String uri, Map<String, String> headerInfo, MediaType mediaType, Object requestData, Class<T> responseType) {
-        return webClientPostRequest(HttpMethod.POST, uri, headerInfo, mediaType, requestData, responseType);
+    public static <T> T postRequest(String uri, Object requestData, Class<T> responseType) {
+        return webClientPostRequest(uri, new HashMap<>(), MediaType.APPLICATION_JSON, requestData, responseType);
     }
 
-    private static <T> T webClientPostRequest(HttpMethod httpMethod, String uri, Map<String, String> headerInfo, MediaType mediaType, Object requestData, Class<T> responseType) {
+    public static <T> T postRequest(String uri, Map<String, String> headerInfo, MediaType mediaType, Object requestData, Class<T> responseType) {
+        return webClientPostRequest(uri, headerInfo, mediaType, requestData, responseType);
+    }
+
+    private static <T> T webClientPostRequest(String uri, Map<String, String> headerInfo, MediaType mediaType, Object requestData, Class<T> responseType) {
         log.info("==================== webClient start ====================");
 
         T response = null;
         try {
             response = webClient
-                    .method(httpMethod)
+                    .post()
                     .uri(uri)
                     .headers(httpHeaders -> {
                         for (String key : headerInfo.keySet()) {
@@ -116,6 +108,16 @@ public class WebClientTemplate {
 
         log.info("==================== webClient end ====================");
         return response;
+    }
+
+    private static String setQueryParam(Map<String, String> requestData) {
+        String queryParam = "";
+        Set<String> keys = requestData.keySet();
+        for (String key : keys) {
+            queryParam = queryParam + key + "=" + requestData.get(key) + "&";
+        }
+
+        return queryParam.substring(0, queryParam.length() - 1);
     }
 }
 //

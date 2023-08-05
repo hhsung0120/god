@@ -1,8 +1,10 @@
 package co.kr.heeseong.god.webclient.controller;
 
+import co.kr.heeseong.god.common.model.BaseResponse;
 import co.kr.heeseong.god.test.model.AccountUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -17,22 +19,37 @@ import java.util.List;
 @RequestMapping("/web-client-test")
 public class WebClientTestDataController {
 
-    @GetMapping("/accounts/{seq}")
-    public AccountUser getAccountUser(@PathVariable(value = "seq", required = false) Long seq){
+    @GetMapping("/accounts")
+    public ResponseEntity<?> getAccountUser(@RequestParam(value = "seq", required = false, defaultValue = "0") Long seq){
         log.info("seq : {}", seq);
         AccountUser user1 = AccountUser.setUserData(1L, "1", "홍길동");
         AccountUser user2 = AccountUser.setUserData(2L, "2", "김길동");
 
         if(seq == 1){
-            return user1;
+            return new ResponseEntity(user1, HttpStatus.OK);
         }else if(seq == 2){
-            return user2;
+            return new ResponseEntity(user2, HttpStatus.OK);
+        }else if(seq == 3){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }else{
-            return null;
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/accounts")
+    @PostMapping("/accounts")
+    public ResponseEntity<?> updateAccountUser(@RequestParam(value = "userId", defaultValue = "") String userId){
+        log.info("userId : {}", userId);
+
+        if("error".equals(userId)){
+            return new ResponseEntity(new BaseResponse(500, "실패했습니다.", null), HttpStatus.OK);
+        }else if(!"".equals(userId)){
+            return new ResponseEntity(new BaseResponse(200, "업데이트 성공.", null), HttpStatus.OK);
+        }else {
+            return new ResponseEntity(new BaseResponse(404, "유저가 없습니다.", userId), HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/accounts/list")
     public List<AccountUser> getAccountUserList(@RequestParam(value = "searchKeyword", required = false, defaultValue = "")String searchKeyword){
         List<AccountUser> accountUserList = new ArrayList<>();
 
@@ -57,15 +74,4 @@ public class WebClientTestDataController {
         return accountUserList;
     }
 
-    @GetMapping("/http-request/400")
-    public ResponseEntity http400(){
-        log.info("http-request 400");
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/http-request/500")
-    public ResponseEntity http500(){
-        log.info("http-request 500");
-        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }

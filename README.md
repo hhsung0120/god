@@ -6,6 +6,16 @@
 
 ---
 
+##프로젝트 구성
+
+#### IntelliJ IDE
+#### JAVA11
+#### SpringBoot 2.7.14
+#### Gradle 8.1.1
+#### MacBook Pro 13 m2 (그냥 쓰고 싶었음..)
+
+---
+
 ### 패키지 구조
 > /src/main
 > > /java/co/kr
@@ -23,8 +33,10 @@
 ```java
 패키지 위치 co.kr.heeseong.god.webclient
         
-    WebClientTemplate.getRequest(URL + "/accounts", request, Map.class);
-    WebClientTemplate.postRequest(URL + "/accounts", request, Map.class);
+    WebClientTemplate.getRequest(URL + "/accounts", request, Map.class); [요청 주소, 요청 데이터, 리턴 타입]
+    WebClientTemplate.postRequest(URL + "/accounts", request, Map.class); [요청 주소, 요청 데이터, 리턴 타입]
+    // 컨텐츠 타입 및 헤더를 넣을 수 있는 함수도 있으니 참고 바랍니다.
+    // 기본 컨텐츠 타입은 MediaType.APPLICATION_JSON 입니다.
 ```
 
 [//]: # ()

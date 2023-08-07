@@ -12,6 +12,14 @@ public class BaseResponse {
     public BaseResponse() {
     }
 
+    public BaseResponse(Object data) {
+        this(200, "성공", data);
+    }
+
+    public BaseResponse(int code, String message) {
+        this(code, message, null);
+    }
+
     public BaseResponse(int code, String message, Object data) {
         this.code = code;
         this.message = message;

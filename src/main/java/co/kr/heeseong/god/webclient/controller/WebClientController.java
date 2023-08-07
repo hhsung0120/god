@@ -9,7 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,10 +28,10 @@ public class WebClientController {
         Map<String, String> request = new HashMap<>();
         request.put("seq", String.valueOf(seq));
 
-        Map<String, String> response = WebClientTemplate.getRequest(URL + "/accounts", request, Map.class);
+        List<String> response = WebClientTemplate.getRequest(URL + "/accounts", request, ArrayList.class);
 
         log.info("data : {}", response);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/accounts/{seq}")
@@ -37,8 +39,8 @@ public class WebClientController {
         Map<String, String> request = new HashMap<>();
         request.put("seq", String.valueOf(seq));
 
-        AccountUser response = WebClientTemplate.postRequest(URL + "/accounts/", request, AccountUser.class);
+        Map<String, String> response = WebClientTemplate.postRequest(URL + "/accounts/", request, Map.class);
         log.info(response);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -1,11 +1,8 @@
 package co.kr.heeseong.god.webclient.utils;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
@@ -18,28 +15,22 @@ import java.util.Set;
 public class WebClientTemplate {
 
     private static final int TIMEOUT_SEC = 10;
+
     private static WebClient webClient;
-
-    // 타임 아웃 시간 설정
-    // get 요청 보내기 -> 원하는 객체로 응답 받기
-    // post 요청 보내기 -> 원하는 객체로 응답 받기
-    // get 요청 보내기 -> 원하는 List<객체>로 응답받기
-    // post 요청 보내기 -> 원하는 List<객체>로 응답받기
-    // 파일 가져오기 ?
-    // 이거 추가
-    // 컨텐츠 타입도.. 처리 가능해야 할듯.. ?
-    //헤더 설정
-
     public WebClientTemplate(WebClient.Builder builder) {
         webClient = builder.build();
     }
 
     public static <T> T getRequest(String uri, Map<String, String> requestData, Class<T> responseType) {
-        return webClientGetRequest(uri, new HashMap<>(), requestData, responseType);
+        return getRequest(uri, new HashMap<>(), requestData, responseType);
+    }
+
+    public static <T> T getRequest(String uri, Map<String, String> headerInfo, Map<String, String> requestData, Class<T> responseType) {
+        return webClientGetRequest(uri, headerInfo, requestData, responseType);
     }
 
     private static <T> T webClientGetRequest(String uri, Map<String, String> headerInfo, Map<String, String> requestData, Class<T> responseType) {
-        log.info("==================== webClient start ====================");
+        log.info("==================== webClient get start ====================");
 
         T response = null;
         try {
@@ -62,15 +53,23 @@ public class WebClientTemplate {
                     .timeout(Duration.ofSeconds(TIMEOUT_SEC))
                     .block();
         } catch (Exception e) {
-
+            log.error("기호에 맞게 처리");
         }
 
-        log.info("==================== webClient end ====================");
+        log.info("==================== webClient get end ====================");
         return response;
     }
 
     public static <T> T postRequest(String uri, Object requestData, Class<T> responseType) {
-        return webClientPostRequest(uri, new HashMap<>(), MediaType.APPLICATION_JSON, requestData, responseType);
+        return postRequest(uri, new HashMap<>(), requestData, responseType);
+    }
+
+    public static <T> T postRequest(String uri, Map<String, String> headerInfo, Object requestData, Class<T> responseType) {
+        return postRequest(uri, headerInfo, MediaType.APPLICATION_JSON, requestData, responseType);
+    }
+
+    public static <T> T postRequest(String uri, MediaType mediaType, Object requestData, Class<T> responseType) {
+        return postRequest(uri, new HashMap<>(), mediaType, requestData, responseType);
     }
 
     public static <T> T postRequest(String uri, Map<String, String> headerInfo, MediaType mediaType, Object requestData, Class<T> responseType) {
@@ -78,7 +77,7 @@ public class WebClientTemplate {
     }
 
     private static <T> T webClientPostRequest(String uri, Map<String, String> headerInfo, MediaType mediaType, Object requestData, Class<T> responseType) {
-        log.info("==================== webClient start ====================");
+        log.info("==================== webClient post start ====================");
 
         T response = null;
         try {
@@ -106,7 +105,7 @@ public class WebClientTemplate {
 
         }
 
-        log.info("==================== webClient end ====================");
+        log.info("==================== webClient post end ====================");
         return response;
     }
 

@@ -1,4 +1,4 @@
-package co.kr.heeseong.god.test.model;
+package co.kr.heeseong.god.webclient.model.model;
 
 import lombok.Builder;
 import lombok.Getter;

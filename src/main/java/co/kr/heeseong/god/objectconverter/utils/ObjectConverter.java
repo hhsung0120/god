@@ -1,4 +1,4 @@
-package co.kr.heeseong.god.objectconverter;
+package co.kr.heeseong.god.objectconverter.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,6 +24,7 @@ public class ObjectConverter {
         try {
             return mapper.writeValueAsString(input);
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
             log.info("objectToJson Exception", e.getMessage());
             return "";
         }
@@ -45,7 +46,7 @@ public class ObjectConverter {
      * @param input 입력 리스트
      * @return String
      */
-    static public <T> String listToJson(TypeReference<List<T>> input) {
+    static public <T> String listToJson(Object input) {
         return ObjectConverter.objectToJson(input);
     }
 
@@ -53,10 +54,11 @@ public class ObjectConverter {
      * json(String)를 List<객체>로 변환
      *
      * @param input  입력 문자열
-     * @param output 출력 리스트 타입
      * @return List<T>
      */
-    static public <T> List<T> jsonToList(String input, TypeReference<List<T>> output) {
+    static public <T> List<T> jsonToList(String input) {
+        TypeReference<List<T>> output = new TypeReference<List<T>>() {
+        };
         return ObjectConverter.jsonToList(input, output, false);
     }
 
@@ -93,6 +95,7 @@ public class ObjectConverter {
         try {
             return (T) mapper.readValue(input, output);
         } catch (IOException e) {
+            e.printStackTrace();
             log.info("jsonToObject Exception", e.getMessage());
             return null;
         }
@@ -126,30 +129,19 @@ public class ObjectConverter {
      * @param output
      * @return List<T>
      */
-    static public <T> List<T> objectToList(Object input, TypeReference<List<T>> output) {
+    static private <T> List<T> objectToList(Object input, TypeReference<List<T>> output) {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.convertValue(input, output);
 
     }
 
-    static public <T> T objectToObject(Object fromValue, Class<T> toValueType) {
+    static private <T> T objectToObject(Object fromValue, Class<T> toValueType) {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.convertValue(fromValue, toValueType);
     }
 
-    /**
-     * strin to map
-     *
-     * @param input
-     * @return map
-     */
-    static public Map stringToMap(String input) {
+    static public <T> T mapToObject(Object fromValue, Class<T> toValueType) {
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.readValue(input, Map.class);
-        } catch (IOException e) {
-            log.info("stringToMap", e);
-            return null;
-        }
+        return mapper.convertValue(fromValue, toValueType);
     }
 }

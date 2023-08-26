@@ -1,7 +1,7 @@
 package co.kr.heeseong.god.webclient.controller;
 
 import co.kr.heeseong.god.common.model.BaseResponse;
-import co.kr.heeseong.god.test.model.AccountUser;
+import co.kr.heeseong.god.webclient.model.model.AccountUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

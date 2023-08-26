@@ -1,4 +1,4 @@
-package co.kr.heeseong.god.objectconverter.utils;
+package co.kr.heeseong.god.utils.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-public class ObjectConverter {
+public class ObjectConvertUtil {
 
     /**
      * object to json
@@ -37,7 +37,7 @@ public class ObjectConverter {
      * @return String
      */
     static public String mapToJson(Map<?, ?> input) {
-        return ObjectConverter.objectToJson(input);
+        return ObjectConvertUtil.objectToJson(input);
     }
 
     /**
@@ -47,7 +47,7 @@ public class ObjectConverter {
      * @return String
      */
     static public <T> String listToJson(Object input) {
-        return ObjectConverter.objectToJson(input);
+        return ObjectConvertUtil.objectToJson(input);
     }
 
     /**
@@ -59,7 +59,7 @@ public class ObjectConverter {
     static public <T> List<T> jsonToList(String input) {
         TypeReference<List<T>> output = new TypeReference<List<T>>() {
         };
-        return ObjectConverter.jsonToList(input, output, false);
+        return ObjectConvertUtil.jsonToList(input, output, false);
     }
 
     /**
@@ -108,7 +108,7 @@ public class ObjectConverter {
      * @return map
      */
     static public <T> T jsonToMap(String input) {
-        return (T) ObjectConverter.jsonToObject(input, Map.class);
+        return (T) ObjectConvertUtil.jsonToObject(input, Map.class);
     }
 
     /**

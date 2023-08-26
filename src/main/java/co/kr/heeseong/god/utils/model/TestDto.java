@@ -1,4 +1,4 @@
-package co.kr.heeseong.god.objectconverter.model;
+package co.kr.heeseong.god.utils.model;
 
 import lombok.Getter;
 import lombok.ToString;

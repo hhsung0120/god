@@ -1,7 +1,7 @@
-package co.kr.heeseong.god.objectconverter.main;
+package co.kr.heeseong.god.utils.main;
 
-import co.kr.heeseong.god.objectconverter.model.TestDto;
-import co.kr.heeseong.god.objectconverter.utils.ObjectConverter;
+import co.kr.heeseong.god.utils.model.TestDto;
+import co.kr.heeseong.god.utils.utils.ObjectConvertUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class MainController {
         /* ########################################################################################### */
         // object to json
         TestDto dto = new TestDto(1L, "heeseong", "heeseong");
-        String objectToJson = ObjectConverter.objectToJson(dto);
+        String objectToJson = ObjectConvertUtil.objectToJson(dto);
         System.out.println("objectToJson = " + objectToJson);
 
         /* ########################################################################################### */
@@ -24,7 +24,7 @@ public class MainController {
         TestDto testDto2 = new TestDto(2L, "dhzpdl2", "anfqud2");
         TestDto testDto3 = new TestDto(3L, "dhzpdl2", "anfqud3");
         List<TestDto> objectList = Arrays.asList(testDto1, testDto2, testDto3);
-        String listToJson = ObjectConverter.listToJson(objectList);
+        String listToJson = ObjectConvertUtil.listToJson(objectList);
         System.out.println("listToJson = " + listToJson);
 
         /* ########################################################################################### */
@@ -33,25 +33,25 @@ public class MainController {
         map.put("seq", "1");
         map.put("memberId", "hshan");
         map.put("memberName", "heeseong");
-        String mapToJson = ObjectConverter.mapToJson(map);
+        String mapToJson = ObjectConvertUtil.mapToJson(map);
         System.out.println("mapToJson = " + mapToJson);
 
         /* ########################################################################################### */
         // list 형의 json 을 List로 변환, 변수 이름 일치 해야함
         String listJson = "[{\"seq\":1,\"memberId\":\"dhzpdl1\",\"memberName\":\"anfqud1\"},{\"seq\":2,\"memberId\":\"dhzpdl2\",\"memberName\":\"anfqud2\"},{\"seq\":3,\"memberId\":\"dhzpdl2\",\"memberName\":\"anfqud3\"}]";
-        List<TestDto> dtoList = ObjectConverter.jsonToList(listJson);
+        List<TestDto> dtoList = ObjectConvertUtil.jsonToList(listJson);
         System.out.println("dtoList = " + dtoList);
 
         /* ########################################################################################### */
         // object to map
         TestDto testDto4 = new TestDto(1L, "dhzpdl1", "anfqud1");
-        Map<String, Object> objectToMap = ObjectConverter.objectToMap(testDto4);
+        Map<String, Object> objectToMap = ObjectConvertUtil.objectToMap(testDto4);
         System.out.println("objectToMap = " + objectToMap);
 
         /* ########################################################################################### */
         // json to map
         String testJson = "{\"memberName\":\"heeseong\",\"seq\":\"1\",\"memberId\":\"hshan\"}";
-        Map<String, String> jsonToMap = ObjectConverter.jsonToMap(testJson);
+        Map<String, String> jsonToMap = ObjectConvertUtil.jsonToMap(testJson);
         System.out.println("jsonToMap = " + jsonToMap);
 
         /* ########################################################################################### */
@@ -61,13 +61,13 @@ public class MainController {
         testMap.put("seq", "12");
         testMap.put("memberId", "hshantest");
         testMap.put("memberName", "heeseong2222");
-        TestDto mapToObject = ObjectConverter.mapToObject(testMap, TestDto.class);
+        TestDto mapToObject = ObjectConvertUtil.mapToObject(testMap, TestDto.class);
         System.out.println("mapToObject = " + mapToObject);
 
         /* ########################################################################################### */
         // json to object
         String testJson2 = "{\"memberName\":\"heeseong\",\"seq\":\"1\",\"memberId\":\"hshan\"}";
-        TestDto jsonToObject = ObjectConverter.jsonToObject(testJson2, TestDto.class);
+        TestDto jsonToObject = ObjectConvertUtil.jsonToObject(testJson2, TestDto.class);
         System.out.println("jsonToObject = " + jsonToObject);
     }
 }

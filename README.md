@@ -55,37 +55,39 @@ WebClientTemplate.postRequest(URL + "/accounts", request, Map.class); [요청 �
 
 ## [object convert util]
 ### 1. utils 패키지 복사
+
 ```java
-package co.kr.heeseong.god.objectconverter.utils;
+package co.kr.heeseong.god.utils.utils;
 ```
 
 ### 2. 사용 가이드
+
 ```java
-package co.kr.heeseong.god.objectconverter.main;
+package co.kr.heeseong.god.utils.main;
 
 // object to json
-String objectToJson = ObjectConverter.objectToJson(dto);
+String objectToJson=ObjectConverter.objectToJson(dto);
 
 // list to json
-List<TestDto> objectList = Arrays.asList(testDto1, testDto2, testDto3);
+        List<TestDto> objectList=Arrays.asList(testDto1,testDto2,testDto3);
 
 // map to json
-String mapToJson = ObjectConverter.mapToJson(map);
+        String mapToJson=ObjectConverter.mapToJson(map);
 
 // list 형의 json 을 List로 변환,
-List<TestDto> dtoList = ObjectConverter.jsonToList(listJson);
+        List<TestDto> dtoList=ObjectConverter.jsonToList(listJson);
 
 // object to map
-Map<String, Object> objectToMap = ObjectConverter.objectToMap(testDto4);
+        Map<String, Object> objectToMap=ObjectConverter.objectToMap(testDto4);
 
 // json to map
-Map<String, String> jsonToMap = ObjectConverter.jsonToMap(testJson);
+        Map<String, String> jsonToMap=ObjectConverter.jsonToMap(testJson);
 
 // map to object
-TestDto mapToObject = ObjectConverter.mapToObject(testMap, TestDto.class);
+        TestDto mapToObject=ObjectConverter.mapToObject(testMap,TestDto.class);
 
 // json to object
-TestDto jsonToObject = ObjectConverter.jsonToObject(testJson2, TestDto.class);
+        TestDto jsonToObject=ObjectConverter.jsonToObject(testJson2,TestDto.class);
 
 ```
 

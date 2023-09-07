@@ -26,7 +26,7 @@ public class WebClientController {
         Map<String, String> request = new HashMap<>();
         request.put("seq", String.valueOf(seq));
 
-        List<String> response = WebClientTemplate.getRequest(URL + "/accounts", request, ArrayList.class);
+        String response = WebClientTemplate.getRequest(URL + "/accounts", request, String.class);
 
         log.info("data : {}", response);
         return new ResponseEntity<>(response, HttpStatus.OK);

@@ -53,6 +53,7 @@ public class WebClientTemplate {
                     .timeout(Duration.ofSeconds(TIMEOUT_SEC))
                     .block();
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("기호에 맞게 처리");
         }
 

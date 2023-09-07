@@ -27,6 +27,7 @@
 |:--:|:-------------------:|:--------------------:|
 | 1  |     web client      |  http 통신 샘플 및 사용 가이드 |
 | 2  | object convert util | 오브젝트 < -> json 변환 유틸 |
+| 3  | filter util | 요청 주소 로깅 및 응답 시간 체크 |
 
 
 ## [web client]
@@ -88,8 +89,49 @@ String objectToJson=ObjectConverter.objectToJson(dto);
 
 // json to object
         TestDto jsonToObject=ObjectConverter.jsonToObject(testJson2,TestDto.class);
-
+        
 ```
+--- 
+
+## [filter]
+### 1. filter 패키지 복사
+
+```java
+package co.kr.heeseong.god.filter;
+```
+
+### 2. 사용 가이드
+
+#### 패키지 복사 끝
+
+--- 
+
+
+[//]: # (샘플)
+[//]: # (## [object convert util])
+
+[//]: # (### 1. utils 패키지 복사)
+
+[//]: # ()
+[//]: # (```java)
+
+[//]: # (package co.kr.heeseong.god.utils.utils;)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (### 2. 사용 가이드)
+
+[//]: # ()
+[//]: # (```java)
+
+[//]: # (package co.kr.heeseong.god.utils.main;)
+
+[//]: # (```)
+[//]: # (--- )
+
+
+
 
 [//]: # ()
 [//]: # (# MD 파일 가이드)

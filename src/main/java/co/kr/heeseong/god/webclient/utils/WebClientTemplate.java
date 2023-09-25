@@ -36,7 +36,7 @@ public class WebClientTemplate {
         try {
             response = webClient
                     .get()
-                    .uri(uri + "?" + setQueryParam(requestData)) // uriBuilder 와 MultiValueMap 으로 처리가 가능하나.. 어째서인지 로컬에서 주소가 씹힘, 인코딩 이슈 또는 baseUrl 이슈인듯
+                    .uri(uri + setQueryParam(requestData)) // uriBuilder 와 MultiValueMap 으로 처리가 가능하나.. 어째서인지 로컬에서 주소가 씹힘, 인코딩 이슈 또는 baseUrl 이슈인듯
                     .headers(httpHeaders -> {
                         for (String key : headerInfo.keySet()) {
                             httpHeaders.add(key, headerInfo.get(key));
@@ -111,13 +111,17 @@ public class WebClientTemplate {
     }
 
     private static String setQueryParam(Map<String, String> requestData) {
+        if (requestData == null || requestData.isEmpty()) {
+            return "";
+        }
+
         String queryParam = "";
         Set<String> keys = requestData.keySet();
         for (String key : keys) {
             queryParam = queryParam + key + "=" + requestData.get(key) + "&";
         }
 
-        return queryParam.substring(0, queryParam.length() - 1);
+        return "?" + queryParam.substring(0, queryParam.length() - 1);
     }
 }
 //
